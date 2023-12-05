@@ -28,22 +28,21 @@ int main(int argc, char** argv) {
 		, "seven", "eight", "nine", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 	
 	int sum = 0;
-	
+	int count = 1;
 	for (auto line : lines) {
 		size_t first_pos = line.size();
-		int	first_num;
+		int	first_num = 0;
 		size_t last_pos = 0;
-		int last_num;
+		int last_num = 0;
 		int num_count = 0;
 		for (auto number : matches) {
-			size_t temp;
+			size_t temp = 0;
 			temp = line.find(number, 0);
 			if (temp != std::string::npos && temp < first_pos) {
-				if (number == "zero")
-					std::cout << "Found zero at " << temp << std::endl;
 				first_pos = temp;
 				first_num = num_count % 10;
 			}
+ 			temp = 0;
 			temp = line.rfind(number, std::string::npos);
 			if (temp != std::string::npos && temp > last_pos) {
 				last_pos = temp;
@@ -51,8 +50,11 @@ int main(int argc, char** argv) {
 			}
 			num_count++;
 		}
-		// std::cout << "First: " << first_num << " Last: " << last_num << std::endl;
+		if ( last_num == 0)
+			last_num = first_num; //  Some how if there's only a single number, it's not found by rfind don't know why yet so last = first
+		std::cout << "First: " << first_num << " Last: " << last_num << std::endl;
 		sum += 10 * first_num + last_num;
+		count++;
 	}
 
 	std::cout << "Result: " << sum << std::endl;
