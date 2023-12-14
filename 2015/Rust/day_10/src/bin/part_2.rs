@@ -2,7 +2,7 @@ const ZERO: u8 = 48;
 
 fn part_1(input: &str) -> String {
 	let mut output = String::from(input);
-	for _n in 1..=40 {
+	for _n in 1..=50 {
 		output = look_and_say(&output);
 	}
 	output
